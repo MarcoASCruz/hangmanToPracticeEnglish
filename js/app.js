@@ -34,9 +34,16 @@ function HangmanGame(wordToDiscover) {
                             var maches = 0
                             if(senses[j].definition){
                                 var definition = String(senses[j].definition)
-                                var maches = definition.match(wordToDiscover);
+                                console.log("/" + wordToDiscover + "/i")
+                                var regExp = new RegExp(wordToDiscover, "i");
+                                var maches = definition.match(regExp);
                                 if (maches == null) {
-                                    addWordDefinition(definition, results[i].datasets[0])
+                                    dataset = String(results[i].datasets[0])
+                                    console.log(dataset)
+                                    dataSetInList = $.inArray(dataset, ["leasd", "laesd", "brpe", "lase", "brep", "laes", "ldec"])
+                                    if(dataSetInList == -1){
+                                        addWordDefinition(definition, dataset)
+                                    }
                                 }
                             }
                         }
@@ -56,32 +63,11 @@ function HangmanGame(wordToDiscover) {
             case "lasde":
                 reference = "Longman Active Study Dictionary"
                 break;
-            case "ldec":
-                reference = "Longman English-Chinese Dictionary of 100,000 Words (New 2nd Edition)"
-                break;
             case "wordwise":
                 reference = "Longman Wordwise Dictionary"
                 break;
-            case "laesd":
-                reference = "Longman Afrikaans to English"
-                break;
-            case "leasd":
-                reference = "Longman English to Afrikaans"
-                break;
             case "laad3":
                 reference = "Longman Advanced American Dictionary"
-                break;
-            case "laes":
-                reference = "English to Latin American Spanish"
-                break;
-            case "lase":
-                reference = "Latin American Spanish to English"
-                break;
-            case "brep":
-                reference = "English to Brazilian Portuguese"
-                break;
-            case "brpe":
-                reference = "Brazilian Portuguese to English"
                 break;
             default:
                 reference = "person API"   
