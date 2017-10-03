@@ -81,11 +81,11 @@ function HangmanGame(wordToDiscover) {
     }
 
     function tryALetter(){
-        letter = $('.next-letter').val()
+        letter = ($('.next-letter').val()).toLowerCase()
         changes = 0
         wordLength = finalWordArray.length
         for (i = 0; i < wordLength; i++){
-            if (finalWordArray[i] == letter){
+            if (finalWordArray[i].toLowerCase() == letter){
                 changes = changes + 1
                 partialWordArray[i] = finalWordArray[i]
             }
@@ -100,10 +100,16 @@ function HangmanGame(wordToDiscover) {
         else{
             updateError(letter)
         }
+        cleanLetter()
+    }
+
+    function cleanLetter(){
+        $('.next-letter').val("")
     }
 
     function updateError(letter){
         wrongTries.push(letter)
+        $('.wrong-words').text("Wrong-words: " + wrongTries.toString())
         wrongAttempts = wrongTries.length
         if (wrongAttempts <= 6){
             updateImage(wrongAttempts)
@@ -114,7 +120,7 @@ function HangmanGame(wordToDiscover) {
     }
 
     function addRestartButton(){
-        var button = $('<button type="button" class="btn-restart btn btn-default">Restart/Next</button>')
+        var button = $('<button type="button" class="btn-restart btn btn-primary">Restart/Next</button>')
         button.on('click', function(){
             location.reload();
         })
@@ -237,7 +243,7 @@ function getCookie(cname) {
 
 function setCookie(cname, cvalue) {
     var d = new Date();
-    d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + ((((1/24)/60)*10) * 24 * 60 * 60 * 1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";";
 }
