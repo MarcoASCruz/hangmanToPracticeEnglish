@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Hangman To Practice English</title>
+		<link href="lib/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/app.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="login-container container-fluid">
+			<form class="form-inline" action="#">
+			  	<div class="try-form form-group">
+			    	<input type="text" class="username form-control" id="next-letter" placeholder="Write your name ex (Bia)" maxlength="5" width="">
+			  	</div>
+			  	<button type="button" class="btn-login btn btn-default">Login</button>
+			</form>
+		</div>
+		<div class="game-container hide container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="panel panel-default">
+					  	<div class="panel-heading">Definitions</div>
+					  	<div class="word-definition panel-body"></div>
+					</div>
+				</div>
+				<div class="hangman col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<img src="img/0.png" alt="hangman" class="hangman-status img-thumbnail">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="panel panel-default">
+					  	<div class="parcial-word panel-body"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<form class="form-inline">
+					  	<div class="try-form form-group">
+					    	<input type="text" class="next-letter form-control" id="next-letter" placeholder="Next Letter" maxlength="1">
+					  	</div>
+					  	<button type="button" class="btn-try-a-letter btn btn-default">Try a letter</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="lib/jquery/2.1.4/jquery.min.js"></script>
+	<script src="lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/bia.js"></script>
+	<script src="js/marco.js"></script>
+	<script src="js/app.js"></script>
+
+</html>

@@ -1,0 +1,10 @@
+.word-letter{
+    display: inline;
+    font-size: 40px;
+    margin: 3px;
+}
+
+.word-definition{
+    max-height: 140px;
+    overflow-y: scroll;
+}
