@@ -1,1 +1,1 @@
-var marcoWords = ["word1", "word2", "word3"]
+var marcoWords = ["kisses", "guilt", "sand"]
