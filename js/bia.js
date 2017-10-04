@@ -1,1 +1,2 @@
-var biaWords = ["cat", "monkey", "breath"]
+var biaWords = ["hope", "deep", "square"]
+//var biaWords = ["cat", "monkey", "breath"]
