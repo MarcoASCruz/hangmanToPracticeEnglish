@@ -3,6 +3,8 @@ function HangmanGame(wordToDiscover) {
     finalWordArray = []
     letterUndiscovered = "_"
     wrongTries = []
+    totalScoreCookieName = "totalScore"
+    partialScoreCookieName = "partialScore"
 
     function init(){
         wordLength = wordToDiscover.length
@@ -10,6 +12,8 @@ function HangmanGame(wordToDiscover) {
             finalWordArray.push(wordToDiscover[i])
             partialWordArray.push(letterUndiscovered)
         }
+        setPartialScore(100)
+        updateScore(getTotalScore(), 100)
         loadWordDefinition()        
         updatePartialWord()
         addTryAction()
@@ -23,7 +27,6 @@ function HangmanGame(wordToDiscover) {
             }
         })
             .done(function(obj) {
-                console.log(obj)
                 var results = obj.results
                 resultsLength = results.length
                 for (i = 0; i < resultsLength; i++){
@@ -34,12 +37,10 @@ function HangmanGame(wordToDiscover) {
                             var maches = 0
                             if(senses[j].definition){
                                 var definition = String(senses[j].definition)
-                                console.log("/" + wordToDiscover + "/i")
                                 var regExp = new RegExp(wordToDiscover, "i");
                                 var maches = definition.match(regExp);
                                 if (maches == null) {
                                     dataset = String(results[i].datasets[0])
-                                    console.log(dataset)
                                     dataSetInList = $.inArray(dataset, ["leasd", "laesd", "brpe", "lase", "brep", "laes", "ldec"])
                                     if(dataSetInList == -1){
                                         addWordDefinition(definition, dataset)
@@ -113,10 +114,61 @@ function HangmanGame(wordToDiscover) {
         wrongAttempts = wrongTries.length
         if (wrongAttempts <= 6){
             updateImage(wrongAttempts)
+            countError()
         }
         if (wrongAttempts >= 6){
             addRestartButton()
         }
+    }
+
+    function countError(){
+        totalScore = getTotalScore()
+        partialScore = getPartialScore()
+        totalScore -= 20
+        partialScore -= 20
+        setTotalScore(totalScore)
+        setPartialScore(partialScore)
+        updateScore(totalScore, partialScore)
+    }
+
+    function getTotalScore(){
+        totalScore = 0
+        if (cookieExist(totalScoreCookieName)){
+            totalScore = getCookie(totalScoreCookieName)
+        }
+        else {
+            setTotalScore(totalScore)
+        }
+        return totalScore
+    }
+
+    function setTotalScore(value){
+        setCookie(totalScoreCookieName, value)
+    }
+
+    function getPartialScore(){
+        partialScore = 100
+        if (cookieExist(partialScoreCookieName)){
+            partialScore = getCookie(partialScoreCookieName)
+            if (Number(partialScore) < 0){
+                setPartialScore(100)
+            }
+        }
+        else {
+            setPartialScore(partialScore)
+        }
+        return partialScore
+    }
+
+    function setPartialScore(value){
+        setCookie(partialScoreCookieName, value)
+    }
+
+    function updateScore(totalScore, partialScore){
+        totalScoreContainer = $('.total-score')
+        partialScoreContainer = $('.partial-score')
+        totalScoreContainer.text(totalScore)
+        partialScoreContainer.text(partialScore)
     }
 
     function addRestartButton(){
@@ -197,6 +249,7 @@ function login(){
         }
         else{
             setCookie("numberGame", 0)
+            setCookie("totalScore", 300)
             numberGame = 0
         }
         game = HangmanGame(biaWords[numberGame]) //from bia.js
@@ -243,7 +296,7 @@ function getCookie(cname) {
 
 function setCookie(cname, cvalue) {
     var d = new Date();
-    d.setTime(d.getTime() + ((((1/24)/60)*10) * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + ((((1/24)/60)*20) * 24 * 60 * 60 * 1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";";
 }
